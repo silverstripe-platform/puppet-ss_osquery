@@ -1,0 +1,93 @@
+{
+	"options": {
+		"config_plugin": "filesystem",
+		"logger_plugin": "syslog",
+		"logger_path": "/var/log/osquery",
+		"worker_threads": "<%= @processorcount %>",
+		"enable_monitor": "true",
+		"verbose": "false",
+		"utc": "true"
+	},
+	"file_paths": {
+		"binaries": [
+			"/usr/bin/%%",
+			"/usr/sbin/%%",
+			"/bin/%%",
+			"/sbin/%%",
+			"/usr/local/bin/%%",
+			"/usr/local/sbin/%%"
+		],
+		"configuration": [
+			"/etc/%%"
+		],
+		"ssh_keys": [
+			"/home/%/.ssh/authorized_keys",
+			"/root/.ssh/authorized_keys"
+		]
+	},
+	"schedule": {
+		"file_events": {
+			"query": "SELECT * from file_events where action = 'CREATED' or action = 'UPDATED' or action = 'DELETED';",
+			"interval": 300
+		},
+		"kernel_modules": {
+			"platform": "all",
+			"description": "",
+			"version": "1.4.5",
+			"value": "",
+			"query": "SELECT name,size,status from kernel_modules;",
+			"interval": "3600"
+		},
+		"crontab": {
+			"interval": "3600",
+			"query": "SELECT * from crontab;",
+			"value": "",
+			"version": "1.4.5",
+			"platform": "all",
+			"description": ""
+		},
+		"listening_ports": {
+			"version": "1.4.5",
+			"description": "",
+			"platform": "all",
+			"interval": "3600",
+			"query": "SELECT uid, name, port, protocol FROM listening_ports l, processes p WHERE l.pid=p.pid;",
+			"value": ""
+		},
+		"outbound_connections": {
+			"version": "1.4.5",
+			"description": "",
+			"platform": "all",
+			"interval": "300",
+			"value": "",
+			"query": "select user.username, proc.name, hash.md5, socket.pid, proc.path, proc.cmdline, socket.local_port, socket.remote_port, socket.remote_address from process_open_sockets as socket, processes as proc, users as user, hash as hash where socket.local_port not in (select port from listening_ports) and socket.local_port != 0 and socket.pid = proc.pid and user.uid = proc.uid and hash.path = proc.path;"
+		},
+		"suid_bin": {
+			"interval": "3600",
+			"query": "select * from suid_bin;",
+			"value": "",
+			"version": "1.4.5",
+			"description": "",
+			"platform": "all"
+		},
+		"processes": {
+			"query": "SELECT pid, name, path, cmdline from processes;",
+			"value": "",
+			"interval": "300",
+			"platform": "all",
+			"description": "",
+			"version": "1.4.5"
+		},
+		"users": {
+			"value": "",
+			"query": "SELECT * from users;",
+			"interval": "3600",
+			"description": "",
+			"platform": "all",
+			"version": "1.4.5"
+		},
+		"packs": {
+			"ossec-rootkit": "/usr/share/osquery/packs/ossec-rootkit.conf"
+		}
+	}
+}
