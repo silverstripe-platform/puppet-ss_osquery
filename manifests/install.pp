@@ -1,4 +1,5 @@
 class ss_osquery::install inherits ::ss_osquery {
+    include apt::params
 
     ensure_packages(['apt-transport-https', 'lsb-release', 'ca-certificates'], {'ensure' => 'present'})
 
@@ -8,6 +9,7 @@ class ss_osquery::install inherits ::ss_osquery {
     # puppetlabs-apt library.
     apt::key { 'osquery':
             id      => '1484120AC4E9F8A1A577AEEE97A80C63C9D8B80B',
+            server => $::apt::params::keyserver,
             content  => '-----BEGIN PGP PUBLIC KEY BLOCK-----
 
 xsFNBFTC4xABEADYBQa4v0v1UI0ikTL1neuaWYOia23TE3R4BprcztGUlzO97cqF
