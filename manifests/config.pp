@@ -1,4 +1,6 @@
-class ss_osquery::config inherits ::ss_osquery {
+class ss_osquery::config (
+    $config_object = {},
+) inherits ::ss_osquery {
 
     file { '/etc/osquery/osquery.conf':
         ensure  => 'file',
