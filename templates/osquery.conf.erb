@@ -1,4 +1,4 @@
-<%- if @config_object -%>
+<%- if @config_object and !@config_object.empty? -%>
 <% require 'json' %>
 <%= JSON.pretty_generate(JSON.parse(@config_object.to_json)) %>
 <%- else -%>
