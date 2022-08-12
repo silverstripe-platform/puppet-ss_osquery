@@ -4,11 +4,8 @@
 <%- else -%>
 {
 	"options": {
-		"config_plugin": "filesystem",
-		"logger_plugin": "syslog",
 		"logger_path": "/var/log/osquery",
 		"worker_threads": "<%= @processorcount %>",
-		"enable_monitor": "true",
 		"verbose": "false",
 		"utc": "true"
 	},
