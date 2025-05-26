@@ -4,8 +4,8 @@
   "author": "SilverStripe Ltd",
   "license": "BSD-3-Clause",
   "summary": "Puppet module for configure osquery",
-  "source": "https://github.com/silverstripeltd/puppet-ss_osquery",
-  "project_page": "https://github.com/silverstripeltd/puppet-ss_osquery",
+  "source": "https://github.com/silverstripe-platform/puppet-ss_osquery",
+  "project_page": "https://github.com/silverstripe-platform/puppet-ss_osquery",
   "dependencies": [],
   "requirements": [
     {
